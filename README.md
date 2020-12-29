@@ -6,19 +6,17 @@
 | ----------------------| ------- | --------------------------- |
 | nickname              | string  | null: false                 |
 | email                 | string  | null: false,unique: true    |
-| password              | string  | null: false                 |
-| password_confirmation | string  | null: false                 |
+| encrypted_password    | string  | null: false                 |
 | first_name            | string  | null: false                 |
 | last_name             | string  | null: false                 |
 | first_name_kana       | string  | null: false                 |
 | last_name_kana        | string  | null: false                 |
-| birth_date            | string  | null: false                 |
+| birth_date            | date    | null: false                 |
 
 ### Association
 - has_many :items
 - has_many :comments
-- has_one :order
-- has_one :address
+- has_many :orders
 
 ## itemsテーブル
 
@@ -26,18 +24,17 @@
 | ------------------ | ---------- | ----------------------------- |
 | product_name       | string     | null: false                   |
 | description        | text       | null: false                   |
-| category           | integer    | null: false                   |
-| condition          | integer    | null: false                   |
-| shipping_charge    | integer    | null: false                   |
-| area               | integer    | null: false                   |
-| deadline           | integer    | null: false                   |
+| category_id        | integer    | null: false                   |
+| condition_id       | integer    | null: false                   |
+| shipping_charge_id | integer    | null: false                   |
+| prefecture_id      | integer    | null: false                   |
+| deadline_id        | integer    | null: false                   |
 | price              | integer    | null: false                   |
 | user               | references | null: false,foreign_key: true |
 
 ### Association
 - belongs_to :user
 - has_one :order
-- has_one :address
 
 ## ordersテーブル
 
@@ -49,23 +46,22 @@
 ### Association
 - belongs_to :user
 - belongs_to :item
+- has_one :address
 
 ## addressesテーブル
 
 | Column             | Type       | Options                       |
 | ------------------ | ---------- | ----------------------------- |
 | postal_code        | string     | null: false                   |
-| prefecture         | integer    | null: false                   |
+| prefecture_id      | integer    | null: false                   |
 | city               | string     | null: false                   |
-| house_number       | string     |                               |
+| house_number       | string     | null: false                   |
 | building_name      | string     |                               |
 | phone              | string     | null: false                   |
-| item               | references | null: false,foreign_key: true |
-| user               | references | null: false,foreign_key: true | 
+| order              | prefecture | null: false,foreign_key: true |
 
 ### Association
-- belongs_to :user
-- belongs_to :item
+- belongs_to :order
 
 ## commentsテーブル
 
