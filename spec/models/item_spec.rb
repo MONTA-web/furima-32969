@@ -30,10 +30,22 @@ RSpec.describe Item, type: :model do
       expect(@item.errors.full_messages).to include("Category Select")
     end
 
+    it "category_idが空だと保存することができない" do
+      @item.category_id = ""
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Category can't be blank", "Category Select")
+    end
+
     it "conditionが選択されていないと保存することができない" do
       @item.condition_id = 0
       @item.valid?
       expect(@item.errors.full_messages).to include("Condition Select")
+    end
+
+    it "condition_idが空だと保存することができない" do
+      @item.condition_id = ""
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Condition can't be blank", "Condition Select")
     end
 
     it "shipping_chargeが選択されていないと保存することができない" do
@@ -42,16 +54,34 @@ RSpec.describe Item, type: :model do
       expect(@item.errors.full_messages).to include("Shipping charge Select")
     end
 
+    it "shipping_charge_idが空だと登録することができない" do
+      @item.shipping_charge_id= ""
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Shipping charge can't be blank", "Shipping charge Select")
+    end
+
     it "prefectureが選択されていないと保存することができない" do
       @item.prefecture_id = 0
       @item.valid?
       expect(@item.errors.full_messages).to include("Prefecture Select")
     end
 
+    it "prefecture_idが空だと保存することができない" do
+      @item.prefecture_id = ""
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Prefecture can't be blank", "Prefecture Select")
+    end
+
     it "deadlineが選択されていないと保存することができない" do
       @item.deadline_id = 0
       @item.valid?
       expect(@item.errors.full_messages).to include("Deadline Select")
+    end
+
+    it "deadline_idが空だと保存することができない" do
+      @item.deadline_id = ""
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Deadline can't be blank", "Deadline Select")
     end
 
     it "priceが空だと保存することができない" do
