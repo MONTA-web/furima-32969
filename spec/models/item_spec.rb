@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
-  describe '商品出品機能' do
     before do
       @item = FactoryBot.build(:item)
     end
-
+  describe '商品出品機能' do
+   context '商品の保存がうまくいかないとき' do
     it "imageが空だと保存することができない" do
       @item.image = nil
       @item.valid?
@@ -54,7 +54,7 @@ RSpec.describe Item, type: :model do
       expect(@item.errors.full_messages).to include("Shipping charge Select")
     end
 
-    it "shipping_charge_idが空だと登録することができない" do
+    it "shipping_charge_idが空だと保存することができない" do
       @item.shipping_charge_id= ""
       @item.valid?
       expect(@item.errors.full_messages).to include("Shipping charge can't be blank", "Shipping charge Select")
@@ -109,11 +109,14 @@ RSpec.describe Item, type: :model do
       @item.valid?
       expect(@item.errors.full_messages).to include("Price Half-width number", "Price Out of setting range")
     end
-
+  end
+  
+  context '商品の保存がうまくいくとき' do
     it "全ての情報を適切に入力すると保存することができる" do
       @item.save
       expect(@item).to be_valid
     end
+  end
 
 
 
