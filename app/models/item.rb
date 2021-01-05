@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :deadline
   has_one_attached :image
+  has_one :order
 
   with_options presence: true do
   validates :product_name, :description,:image
