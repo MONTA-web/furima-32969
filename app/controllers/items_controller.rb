@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!,only:[:new,:edit]
   before_action :set_item,only:[:show,:update,:contributor_confirmation,:edit,:destroy]
-  before_action :contributor_confirmation,only:[:edit,:destroy]
+  before_action :contributor_confirmation,only:[:edit,:destroy,:update]
 
   def index
     @items = Item.includes(:user).order("created_at DESC")
@@ -36,8 +36,6 @@ class ItemsController < ApplicationController
 
   def destroy
     if @item.destroy
-      redirect_to root_path
-    else
       redirect_to root_path
     end
   end
