@@ -7,7 +7,7 @@ class ItemOrder
     validates :postal_code, format: { with: /\A\d{3}[-]\d{4}\z/}
     validates :city
     validates :house_number
-    validates :phone, format: { with: /\A[0-9]+\z/}
+    validates :phone, format: { with: /\A[0-9]+\z/,message: "input only number"}
   end
     validates :prefecture_id, numericality:{ other_than: 0, message: "Select"}
 
