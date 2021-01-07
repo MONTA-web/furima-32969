@@ -51,6 +51,12 @@ RSpec.describe ItemOrder, type: :model do
           @item_order.valid?
           expect(@item_order.errors.full_messages).to include("Phone input only number")
         end
+
+        it "tokenが空だと保存することができない" do
+          @item_order.token=""
+          @item_order.valid?
+          expect(@item_order.errors.full_messages).to include("Token can't be blank")
+        end
       end
 
       context "商品購入の保存がうまくいくとき" do
