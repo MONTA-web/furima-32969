@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!,only:[:new,:edit]
   before_action :set_item,only:[:show,:update,:contributor_confirmation,:edit,:destroy]
   before_action :contributor_confirmation,only:[:edit,:destroy,:update]
+  before_action :purchased,only:[:edit]
 
   def index
     @items = Item.includes(:user).order("created_at DESC")
@@ -53,6 +54,14 @@ private
   def contributor_confirmation
     redirect_to root_path unless current_user == @item.user  
   end
+
+  def purchased
+    if @item.order.present?
+      redirect_to root_path
+    end
+  end
+
+  
 
 
 end
